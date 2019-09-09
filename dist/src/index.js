@@ -28,7 +28,7 @@ var TrackingMoreApi = /** @class */ (function () {
         };
         this.request = function (url, method, data) {
             if (method === void 0) { method = 'GET'; }
-            return rxjs_1.from(_this.axiosInstance.request({ method: method, url: url, data: data })).pipe(operators_1.pluck('data'));
+            return rxjs_1.from(_this.axiosInstance.request({ method: method, url: url, data: data }));
         };
         this.requestFactory = function (url, method) {
             if (method === void 0) { method = 'GET'; }
@@ -50,7 +50,7 @@ var TrackingMoreApi = /** @class */ (function () {
         this.update = this.requestFactory('/trackings/update', 'POST');
         this.initCarriers = function () {
             return _this.carriers()
-                .pipe(operators_1.pluck('data'), operators_1.map(function (items) {
+                .pipe(operators_1.pluck('data', 'data'), operators_1.map(function (items) {
                 return items.reduce(function (prev, acc) {
                     prev[acc.code] = acc;
                     return prev;

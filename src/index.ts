@@ -8,7 +8,7 @@ import {
     CreateTracingParameter,
     CreateTracingResult,
     SimpleParameter,
-    TrackingInfomation,
+    TrackingInformation,
     UpdateTracingParameter,
     UpdateTrackingResult,
     DeleteTrackingResult,
@@ -70,7 +70,7 @@ export class TrackingMoreApi {
         '/trackings/{carrier_code}/{tracking_number}',
         'DELETE',
     );
-    getTracking = this.requestUrlFactory<TrackingInfomation, void>(
+    getTracking = this.requestUrlFactory<TrackingInformation, void>(
         '/trackings/{carrier_code}/{tracking_number}',
         'GET',
     );
@@ -79,7 +79,7 @@ export class TrackingMoreApi {
         'POST',
     );
     realtime = this.requestFactory<
-        { items: TrackingInfomation[] },
+        { items: TrackingInformation[] },
         CreateTracingParameter
     >('/trackings/realtime', 'POST');
     update = this.requestFactory<{ Usertag: string }, UpdateCarrierParameter>(

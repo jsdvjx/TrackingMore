@@ -195,7 +195,7 @@ export interface TrackingStep {
     Details: string;
     checkpoint_status: TmStatus;
 }
-export interface TrackingInfomationDetail {
+export interface TrackingInformationDetail {
     ItemReceived: string;
     ItemDispatched: string;
     DepartfromAirport: string;
@@ -207,7 +207,7 @@ export interface TrackingInfomationDetail {
     carrier_code: CarrierCode;
     trackinfo: TrackingStep[];
 }
-export interface TrackingInfomation {
+export interface TrackingInformation {
     id: string;
     tracking_number: string;
     carrier_code: CarrierCode;
@@ -225,7 +225,7 @@ export interface TrackingInfomation {
     destination_country: string;
     itemTimeLength: number;
     stayTimeLength: number;
-    origin_info: TrackingInfomationDetail;
+    origin_info: TrackingInformationDetail;
     service_code: string;
     lastEvent: string;
     lastUpdateTime: string;

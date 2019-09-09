@@ -805,8 +805,8 @@
         "signature": "8548a1a83c1091e8c7a355b7edf031854b007d10a7fa24e180a95d608c87704e"
       },
       "../src/index.ts": {
-        "version": "ae63be9af91b6230d63fcf7af7c64876efb118601e85a5c7b872d99d94ac3a77",
-        "signature": "d337a8386cc833b4988cddf551173a9b617e928e029c1178032ad164d0d6e0a6"
+        "version": "7710f277b00060ec60d42972504ea3d0b831f98526a73b652f1d59cf3f2526b9",
+        "signature": "82e660d04b0a286e267ca381d23119a9be64bce9a5a884d773deab40a9248ea3"
       },
       "../node_modules/@types/eslint-visitor-keys/index.d.ts": {
         "version": "725d9be2fd48440256f4deb00649adffdbc5ecd282b09e89d4e200663792c34c",
@@ -2278,7 +2278,6 @@
         "../node_modules/rxjs/index.d.ts",
         "../node_modules/rxjs/operators/index.d.ts",
         "../src/contract.ts",
-        "../map.json",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
@@ -2688,6 +2687,7 @@
       ],
       "../src/index.ts": [
         "../src/contract.ts",
+        "../node_modules/axios/index.d.ts",
         "../node_modules/rxjs/index.d.ts"
       ],
       "../node_modules/axios/index.d.ts": [
