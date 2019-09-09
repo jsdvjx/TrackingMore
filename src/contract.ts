@@ -1,4 +1,4 @@
-import CMAP from '../map.json';
+import * as CMAP from '../map.json';
 export type TmStatus =
     | 'pending' //查询中
     | 'notfound' //未查询到
