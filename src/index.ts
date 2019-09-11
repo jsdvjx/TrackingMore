@@ -15,6 +15,7 @@ import {
     BatchParameter,
     BatchResult,
     UpdateCarrierParameter,
+    TypeTotal,
 } from './contract';
 import * as fs from 'fs';
 type METHOD = 'GET' | 'POST' | 'PUT' | 'DELETE';
@@ -85,6 +86,10 @@ export class TrackingMoreApi {
     update = this.requestFactory<{ Usertag: string }, UpdateCarrierParameter>(
         '/trackings/update',
         'POST',
+    );
+    getStatusTotal = this.requestFactory<TypeTotal>(
+        '/trackings/getstatusnumber',
+        'GET',
     );
     private initCarriers = () =>
         this.carriers()

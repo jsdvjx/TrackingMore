@@ -1,13 +1,6 @@
 import * as CMAP from '../map.json';
-export type TmStatus =
-    | 'pending' //查询中
-    | 'notfound' //未查询到
-    | 'transit' //发送中
-    | 'pickup' //待收件
-    | 'delivered' //妥投
-    | 'undelivered' //未妥投
-    | 'exception' //异常件
-    | 'expired'; //超时
+export type TmStatus = keyof TypeTotal;
+
 export interface TmResponseMeta {
     /**
      * 状态码
@@ -188,6 +181,7 @@ export interface SimpleParameter {
      * @memberof SimpleParameter
      */
     carrier_code: CarrierCode;
+    lang?: 'cn' | 'en';
 }
 export interface TrackingStep {
     Date: string;
@@ -298,4 +292,54 @@ export type UpdateCarrierParameter = SimpleParameter & {
      * @type {CarrierCode}
      */
     update_carrier_code: CarrierCode;
+};
+export type TypeTotal = {
+    /**
+     * 查询中
+     *
+     * @type {number}
+     */
+    pending: number;
+    /**
+     * 未找到订单信息
+     *
+     * @type {number}
+     */
+    notfound: number;
+    /**
+     * 运输中
+     *
+     * @type {number}
+     */
+    transit: number;
+    /**
+     * 待收货
+     *
+     * @type {number}
+     */
+    pickup: number;
+    /**
+     * 妥投
+     *
+     * @type {number}
+     */
+    delivered: number;
+    /**
+     * 未妥投
+     *
+     * @type {number}
+     */
+    undelivered: number;
+    /**
+     * 异常
+     *
+     * @type {number}
+     */
+    exception: number;
+    /**
+     * 超时
+     *
+     * @type {number}
+     */
+    expired: number;
 };
