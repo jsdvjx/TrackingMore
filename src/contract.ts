@@ -343,3 +343,102 @@ export type TypeTotal = {
      */
     expired: number;
 };
+export interface GetListResult {
+    page: number;
+    limit: number;
+    total: number;
+    items: TrackingInformation[];
+}
+export interface GetListParameter {
+    /**
+     *  (optional)	Page to display	1
+     *
+     * @type {number}
+     * @memberof GetListParameter
+     */
+    page?: number;
+    /**
+     *  (optional)	Items per page (max 2000)	100
+     *
+     * @type {number}
+     * @memberof GetListParameter
+     */
+    limit?: number;
+    /**
+     *  (optional)	Items in this status	null
+     *
+     * @type {(string|null)}
+     * @memberof GetListParameter
+     */
+    status?: string | null;
+    /**
+     *   (optional)	Start date and time of trackings created(format:The unix timestamp example:1076599161)	null
+     *
+     * @type {number}
+     * @memberof GetListParameter
+     */
+    created_at_min?: number;
+    /**
+     * (optional)	End date and time of trackings created.(format:The unix timestamp example:1076570361)	now
+     *
+     * @type {number}
+     * @memberof GetListParameter
+     */
+    created_at_max?: number;
+    /**
+     *  (optional)	Start date and time of trackings updated(format:The unix timestamp example:1076599161)	null
+     *
+     * @type {number}
+     * @memberof GetListParameter
+     */
+    update_time_min?: number;
+    /**
+     * (optional)	End date and time of trackings updated.(format:The unix timestamp example:1076570361)	now
+     *
+     * @type {number}
+     * @memberof GetListParameter
+     */
+    update_time_max?: number;
+    /**
+     *  (optional)	Start date and time of trackings created(format:The unix timestamp example:1076599161)	null
+     *
+     * @type {number}
+     * @memberof GetListParameter
+     */
+    order_created_time_min?: number;
+    /**
+     * (optional)	End date and time of trackings created.(format:The unix timestamp example:1076570361)	now
+     *
+     * @type {number}
+     * @memberof GetListParameter
+     */
+    order_created_time_max?: number;
+    /**
+     *  (optional)	Return to language type (only when courier official website supports).了解更多信息	null
+     *
+     * @type {string}
+     * @memberof GetListParameter
+     */
+    lang?: string;
+    /**
+     *  (optional)	Track number (max 40) ,multiple numbers must be separated by .(Example:numbers=LX123445678CN,LX456789123CN)	null
+     *
+     * @type {string}
+     * @memberof GetListParameter
+     */
+    numbers?: string[];
+    /**
+     *  (optional)	Order number (max 40) ,multiple orders must be separated by .(Example:orders=1234456,456789)	null
+     *
+     * @type {string}
+     * @memberof GetListParameter
+     */
+    orders?: string[];
+    /**
+     * (optional)	String true Get archive number, string false Get undocumented number, other string value or null Get mixed number.
+     *
+     * @type {boolean}
+     * @memberof GetListParameter
+     */
+    archived?: boolean;
+}

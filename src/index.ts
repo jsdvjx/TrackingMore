@@ -1,6 +1,7 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import { Observable, from } from 'rxjs';
 import { pluck, map, tap } from 'rxjs/operators';
+import * as qs from 'querystring';
 import {
     TmResponse,
     Carrier,
@@ -16,6 +17,8 @@ import {
     BatchResult,
     UpdateCarrierParameter,
     TypeTotal,
+    GetListResult,
+    GetListParameter,
 } from './contract';
 import * as fs from 'fs';
 type METHOD = 'GET' | 'POST' | 'PUT' | 'DELETE';
@@ -39,12 +42,32 @@ export class TrackingMoreApi {
                   url,
               )
             : url;
+    private qs = ({
+        method,
+        data,
+        url,
+    }: {
+        method: METHOD;
+        data: any;
+        url: string;
+    }) => {
+        if (method === 'GET' && data && typeof data === 'object') {
+            return `${url}?${qs.stringify(data)}`;
+        }
+        return url;
+    };
     private request = <O = any, I = void>(
         url: string,
         method: METHOD = 'GET',
         data: I,
     ): Observable<AxiosResponse<O>> =>
-        from(this.axiosInstance.request({ method, url, data }));
+        from(
+            this.axiosInstance.request({
+                method,
+                url: this.qs({ method, url, data }),
+                data,
+            }),
+        );
     private requestFactory = <O = any, I = void>(
         url: string,
         method: METHOD = 'GET',
@@ -58,39 +81,98 @@ export class TrackingMoreApi {
             method,
             data,
         );
+    /**
+     * 查询单个物流
+     *
+     * @memberof TrackingMoreApi
+     */
     carriers = this.requestFactory<Carrier[]>('/carriers', 'GET');
+    /**
+     * 创建单个物流
+     *
+     * @memberof TrackingMoreApi
+     */
     createTracking = this.requestFactory<
         CreateTracingResult,
         CreateTracingParameter
     >('/trackings/post', 'POST');
+    /**
+     * 更新物流信息
+     *
+     * @memberof TrackingMoreApi
+     */
     updateTracking = this.requestUrlFactory<
         UpdateTrackingResult,
         UpdateTracingParameter
     >('/trackings/{carrier_code}/{tracking_number}', 'PUT');
+    /**
+     * 删除订单
+     *
+     * @memberof TrackingMoreApi
+     */
     deleteTracking = this.requestUrlFactory<DeleteTrackingResult, void>(
         '/trackings/{carrier_code}/{tracking_number}',
         'DELETE',
     );
+    /**
+     * 获取单条物流
+     *
+     * @memberof TrackingMoreApi
+     */
     getTracking = this.requestUrlFactory<TrackingInformation, void>(
         '/trackings/{carrier_code}/{tracking_number}',
         'GET',
     );
+    /**
+     * 批量添加物流
+     *
+     * @memberof TrackingMoreApi
+     */
     batch = this.requestFactory<BatchResult, BatchParameter>(
         '/trackings/batch',
         'POST',
     );
+    /**
+     * 实时查询，每秒3次
+     *
+     * @memberof TrackingMoreApi
+     */
     realtime = this.requestFactory<
         { items: TrackingInformation[] },
         CreateTracingParameter
     >('/trackings/realtime', 'POST');
+    /**
+     * 更新物流公司
+     *
+     * @memberof TrackingMoreApi
+     */
     update = this.requestFactory<{ Usertag: string }, UpdateCarrierParameter>(
         '/trackings/update',
         'POST',
     );
+    /**
+     * 获取各状态物流总数
+     *
+     * @memberof TrackingMoreApi
+     */
     getStatusTotal = this.requestFactory<TypeTotal>(
         '/trackings/getstatusnumber',
         'GET',
     );
+    private static _toQueryString = (parameter: GetListParameter) => {
+        const result: any = { ...parameter };
+        if (parameter.orders) {
+            result.orders = parameter.orders.join(',');
+        }
+        if (parameter.numbers) {
+            result.numbers = parameter.numbers.join(',');
+        }
+        return result;
+    };
+    getList = (parameter: GetListParameter) =>
+        this.requestFactory<GetListResult, any>('/trackings/get', 'GET')(
+            TrackingMoreApi._toQueryString(parameter),
+        );
     private initCarriers = () =>
         this.carriers()
             .pipe(
