@@ -44,7 +44,7 @@ export class TrackingMoreApi {
       ? Object.entries(data).reduce(
         (result, [key, value]) =>
           result.replace(RegExp(`{${key}}`, 'g'), value),
-        url,
+        url
       )
       : url;
 
@@ -66,29 +66,29 @@ export class TrackingMoreApi {
   private request = <O = any, I = void>(
     url: string,
     method: METHOD = 'GET',
-    data: I,
+    data: I
   ): Observable<AxiosResponse<O>> =>
     from(
       this.axiosInstance.request({
         method,
         url: this.qs({ method, url, data }),
         data
-      }),
+      })
     );
 
   private requestFactory = <O = any, I = void>(
     url: string,
-    method: METHOD = 'GET',
+    method: METHOD = 'GET'
   ) => (data: I) => this.request<TmResponse<O>, I>(url, method, data);
 
   private requestUrlFactory = <O = any, I = void>(
     url: string,
-    method: METHOD = 'GET',
+    method: METHOD = 'GET'
   ) => (select: SimpleParameter, data: I) =>
     this.request<TmResponse<O>, I>(
       this.replaceUrl(url, select),
       method,
-      data,
+      data
     );
 
   /**
@@ -120,7 +120,7 @@ export class TrackingMoreApi {
    */
   deleteTracking = this.requestUrlFactory<DeleteTrackingResult, void>(
     '/trackings/{carrier_code}/{tracking_number}',
-    'DELETE',
+    'DELETE'
   );
 
   /**
@@ -130,7 +130,7 @@ export class TrackingMoreApi {
    */
   getTracking = this.requestUrlFactory<TrackingInformation, void>(
     '/trackings/{carrier_code}/{tracking_number}',
-    'GET',
+    'GET'
   );
 
   /**
@@ -140,7 +140,7 @@ export class TrackingMoreApi {
    */
   batch = this.requestFactory<BatchResult, BatchParameter>(
     '/trackings/batch',
-    'POST',
+    'POST'
   );
 
   /**
@@ -158,7 +158,7 @@ export class TrackingMoreApi {
    */
   update = this.requestFactory<{ Usertag: string }, UpdateCarrierParameter>(
     '/trackings/update',
-    'POST',
+    'POST'
   );
 
   /**
@@ -168,7 +168,7 @@ export class TrackingMoreApi {
    */
   getStatusTotal = this.requestFactory<TypeTotal>(
     '/trackings/getstatusnumber',
-    'GET',
+    'GET'
   );
 
   private static _toQueryString = (parameter: GetListParameter) => {
@@ -184,7 +184,7 @@ export class TrackingMoreApi {
 
   getList = (parameter: GetListParameter) =>
     this.requestFactory<GetListResult, any>('/trackings/get', 'GET')(
-      TrackingMoreApi._toQueryString(parameter),
+      TrackingMoreApi._toQueryString(parameter)
     );
 
   private initCarriers = () =>
@@ -197,15 +197,15 @@ export class TrackingMoreApi {
               prev[acc.code] = acc
               return prev
             },
-            {} as CarriersMap,
-          ),
+            {} as CarriersMap
+          )
         ),
         tap(cmap => {
           fs.writeFileSync(
             `${__dirname}/map.json`,
-            JSON.stringify(cmap),
+            JSON.stringify(cmap)
           )
-        }),
+        })
       )
       .subscribe();
 }
