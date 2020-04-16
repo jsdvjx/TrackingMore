@@ -1,4 +1,4 @@
-import * as CMAP from '../map.json'
+import * as CMAP from './map.json'
 export type TmStatus = keyof TypeTotal;
 
 export interface TmResponseMeta {
