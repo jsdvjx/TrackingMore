@@ -1,4 +1,4 @@
-import * as CMAP from './map.json'
+import * as CMAP from './map.json';
 export type TmStatus = keyof TypeTotal;
 
 export interface TmResponseMeta {
@@ -129,6 +129,32 @@ export interface UpdateTracingParameter {
     destination_code?: string; // (optional)	目标国家/地区代码 (两个字符).查看国际国家二字代码
     archived?: boolean; // (optional)	Modify whether a single number is archived by passing a true/false string.
     status?: number; // (optional)	Change status.You can only change the state value to 4, 7 or 8. 4 means delivered, 7 means exception, 8 means return to the original status.
+}
+export interface WebhookBody {
+    id: string;
+    tracking_number: string;
+    carrier_code: CarrierCode;
+    status: TmStatus;
+    created_at: string;
+    updated_at: string;
+    title: string;
+    order_id: string;
+    customer_name: string;
+    customer_email: string;
+    original_country: string;
+    destination_country: string;
+    itemTimeLength: number;
+    origin_info: {
+        weblink: string;
+        phone: string;
+        carrier_code: CarrierCode;
+        trackinfo: {
+            Date: string;
+            StatusDescription: string;
+            Details: string;
+        }[];
+    };
+    lastEvent: string;
 }
 export type TrackingStatus = 'pendding';
 export interface CreateTracingResult {

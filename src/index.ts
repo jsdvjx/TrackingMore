@@ -24,7 +24,7 @@ import {
 import * as fs from 'fs'
 
 type METHOD = 'GET' | 'POST' | 'PUT' | 'DELETE';
-
+export * from './contract';
 export class TrackingMoreApi {
   private axiosInstance: AxiosInstance;
 
